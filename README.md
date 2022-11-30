@@ -18,3 +18,14 @@ $ git add file_name
 $ git commit -m "修正内容"
 $ git push
 ```
+
+### 修正項目の申請
+```
+プルリクエストの作成
+```
+
+### 本家レポジトリとの同期
+```
+$ git fetch upstream
+$ git merge upstream/master
+```
