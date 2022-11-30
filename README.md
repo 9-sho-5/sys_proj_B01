@@ -19,6 +19,11 @@ $ git commit -m "修正内容"
 $ git push
 ```
 
+### upstreamの設定
+```
+$ git remtoe add upstream 本家リポジトリURL
+```
+
 ### 修正項目の申請
 ```
 プルリクエストの作成
