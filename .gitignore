@@ -1,3 +1,8 @@
+# .DS_Storeの追跡外す
 .DS_Store
 
+# css.mapの追跡外す
 *.map
+
+# 環境変数ファイルの追跡はずす
+./**/Env.java
