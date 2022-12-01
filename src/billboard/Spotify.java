@@ -52,5 +52,32 @@ public class Spotify {
     public String getAuthorizationUrl() throws UnsupportedEncodingException {
         return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", authorizeUrl, clientId, URLEncoder.encode(redirectUri, "utf-8"), String.join(" ", scope), new SecureRandom());
     }
+
+    /**
+     * アクセストークンの生成メソッド
+     * @throws UnirestException
+     * @throws UnsupportedEncodingException
+     */
+    public void crateAccessToken() throws UnirestException, UnsupportedEncodingException {
+        // HTTPクライアントの準備
+		HttpClient client = HttpClient.newHttpClient();
+        // HTTPリクエストの送信
+		HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://accounts.spotify.com/api/token"))
+			.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((clientId + ':' + clientSecret).getBytes(StandardCharsets.UTF_8)))
+			.setHeader("Content-Type", "application/x-www-form-urlencoded")
+			.POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s", URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(code, "UTF-8"), URLEncoder.encode(redirectUri, "UTF-8"))))
+            .build();
+		try {
+			// リクエストを送信
+			var response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+			// レスポンスボディからaccess_tokenの取得
+			JSONObject json = new JSONObject(response.body());
+            // アクセストークンの格納
+			accessToken = json.getString("access_token");
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
