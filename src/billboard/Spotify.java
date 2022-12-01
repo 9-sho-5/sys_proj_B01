@@ -46,5 +46,11 @@ public class Spotify {
     // アクセストークンの格納変数
 	private String accessToken = null;
     
+    /**
+     * ユーザー認証URLの発行メソッド
+     */
+    public String getAuthorizationUrl() throws UnsupportedEncodingException {
+        return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", authorizeUrl, clientId, URLEncoder.encode(redirectUri, "utf-8"), String.join(" ", scope), new SecureRandom());
+    }
 }
 
