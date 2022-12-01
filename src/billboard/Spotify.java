@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.nio.charset.StandardCharsets;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Spotify {
      
