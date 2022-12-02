@@ -22,16 +22,16 @@ const Search = () => {
 const Header = () => {
   return (
     <header>
-      <a href="/index.html" className="logo">
+      <a href="./index.html" className="logo">
         Billboard Kindai
       </a>
       <nav>
         <ul className="nav-list">
           <li className="nav-list-item">
-            <a href="/index.html">ホーム</a>
+            <a href="./index.html">ホーム</a>
           </li>
           <li clasName="nav-list-item">
-            <a href="/search.html">検索</a>
+            <a href="./search.html">検索</a>
           </li>
         </ul>
       </nav>

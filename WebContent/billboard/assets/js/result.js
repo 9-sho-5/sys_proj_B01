@@ -42,7 +42,7 @@ const Result = () => {
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        <a href="/search.html">検索画面へ戻る</a>
+        <a href="./search.html">検索画面へ戻る</a>
       </div>
     </>
   );
@@ -63,16 +63,16 @@ const Album = ({ album }) => {
 const Header = () => {
   return (
     <header>
-      <a href="/index.html" className="logo">
+      <a href="./index.html" className="logo">
         Billboard Kindai
       </a>
       <nav>
         <ul className="nav-list">
           <li className="nav-list-item">
-            <a href="/index.html">ホーム</a>
+            <a href="./index.html">ホーム</a>
           </li>
           <li clasName="nav-list-item">
-            <a href="/search.html">検索</a>
+            <a href="./search.html">検索</a>
           </li>
         </ul>
       </nav>
