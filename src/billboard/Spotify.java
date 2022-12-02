@@ -105,6 +105,7 @@ public class Spotify {
 
     /**
      * 楽曲検索メソッド
+     * 
      * @param keyword
      * @return
      * @throws UnsupportedEncodingException
@@ -165,6 +166,7 @@ public class Spotify {
 
     /**
      * 楽曲追加メソッド
+     * 
      * @param playlistId
      * @param uris
      * @return
@@ -195,5 +197,14 @@ public class Spotify {
             e.printStackTrace();
         }
         return builder.toString();
+    }
+
+    /**
+     * codeのセッター
+     * 
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code;
     }
 }
