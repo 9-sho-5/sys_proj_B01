@@ -21,6 +21,9 @@ public class Spotify {
     // 環境変数の読み込み準備
     Dotenv dotenv = Dotenv.configure().load();
 
+    // Spotifyシングルトンインスタンスの取得
+    private static Spotify spotify = new Spotify();
+
     // 環境変数からの読み込み
     private final String clientId = dotenv.get("CLIENT_ID");
 	private final String clientSecret = dotenv.get("CLIENT_SECRET");
@@ -42,15 +45,28 @@ public class Spotify {
 		"user-top-read",
 	};
     // ユーザーのAPI認証後に取得するcodeの格納変数
-    private String code = null;
+    private String code;
     // アクセストークンの格納変数
-	private String accessToken = null;
+	private String accessToken;
+
+    /**
+     * コンストラクタ
+     */
+    private Spotify(){
+		code = null;
+		accessToken = null;
+	}
+
+    // シングルトンインスタンスのゲッター
+    public static Spotify getInstance(){
+        return spotify;
+    }
     
     /**
      * ユーザー認証URLの発行メソッド
      */
     public String getAuthorizationUrl() throws UnsupportedEncodingException {
-        return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", authorizeUrl, clientId, URLEncoder.encode(redirectUri, "utf-8"), String.join(" ", scope), new SecureRandom());
+        return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", this.authorizeUrl, this.clientId, URLEncoder.encode(this.redirectUri, "utf-8"), String.join(" ", this.scope), new SecureRandom());
     }
 
     /**
@@ -64,9 +80,9 @@ public class Spotify {
         // HTTPリクエストの送信
 		HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://accounts.spotify.com/api/token"))
-			.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((clientId + ':' + clientSecret).getBytes(StandardCharsets.UTF_8)))
+			.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
 			.setHeader("Content-Type", "application/x-www-form-urlencoded")
-			.POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s", URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(code, "UTF-8"), URLEncoder.encode(redirectUri, "UTF-8"))))
+			.POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s", URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(this.code, "UTF-8"), URLEncoder.encode(this.redirectUri, "UTF-8"))))
             .build();
 		try {
 			// リクエストを送信
