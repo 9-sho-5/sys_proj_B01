@@ -1,21 +1,57 @@
 const useState = React.useState;
 const useEffect = React.useEffect;
 
-const Search = () => {
-  const [value, setValue] = useState("");
-  const handleValueChange = (event) => {
-    setValue(event.target.value);
-  };
+const Ranking = () => {
+  const [albums, setAlbums] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`https://jsonplaceholder.typicode.com/albums`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("error");
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        setAlbums(data);
+        setIsLoading(false);
+        console.log(data);
+      })
+      .catch((error) => {
+        setError("取得できませんでした");
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <Header />
-      <h1>アルバムを検索</h1>
-      <p>(1-100の数字を入力するとアルバム情報を取得できます)</p>
-      <form action="/result.html" method="get">
-        <input value={value} name="value" onChange={handleValueChange} />
-        <input type="submit" value="検索！" />
-      </form>
+      <h1>楽曲ランキング</h1>
+      {albums && albums.map((album) => <Album album={album} />)}
+      <div>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        <a href="/index.html">戻る</a>
+      </div>
     </>
+  );
+};
+
+const Album = ({ album }) => {
+  return (
+    <div className="album">
+      <img src="./img/entertainment_music.png" alt="album art" />
+      <p> {album.id}</p>
+      <p>アルバム名: {album.title}</p>
+      <p>曲名: hogehoge</p>
+      <button>リクエストする</button>
+    </div>
   );
 };
 
@@ -41,4 +77,4 @@ const Header = () => {
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
-root.render(<Search />);
+root.render(<Ranking />);
