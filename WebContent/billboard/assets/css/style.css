@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+}
+
+.wow {
+  text-align: center;
+}
+
+img {
+  width: 30px;
+}
+
+.album {
+  display: flex;
+  align-items: center;
+  border: solid 1px black;
+  background-color: aliceblue;
+}
+header {
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: black;
+  margin: 0;
+}
+
+.logo {
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+nav {
+  margin-left: auto;
+}
+
+nav ul li {
+  padding: 0 20px;
+}
+
+.logo {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+}
+
+li a {
+  text-decoration: none;
+  color: white;
+}
