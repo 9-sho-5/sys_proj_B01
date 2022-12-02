@@ -11,7 +11,7 @@ const Search = () => {
       <Header />
       <h1>アルバムを検索</h1>
       <p>(1-100の数字を入力するとアルバム情報を取得できます)</p>
-      <form action="/result.html" method="get">
+      <form action="./result.html" method="get">
         <input value={value} name="value" onChange={handleValueChange} />
         <input type="submit" value="検索！" />
       </form>
