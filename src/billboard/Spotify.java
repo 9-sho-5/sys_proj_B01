@@ -95,5 +95,53 @@ public class Spotify {
 			e.printStackTrace();
 		}
 	}
+
+    public String search(String keyword) throws UnsupportedEncodingException {
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(apiEndpoint + String.format("/search?q=%s&type=%s&limit=5", keyword, URLEncoder.encode("track", "utf-8"))))
+			.setHeader("Authorization", "Bearer " + this.accessToken)
+			.setHeader("Content-Type", "application/json")
+			.GET()
+            .build();
+		
+        // レスポンスの格納変数
+		StringBuilder builder = null;
+		try {
+			// リクエストを送信
+			var response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+			// レスポンスボディからaccess_tokenの取得
+			JSONObject json = new JSONObject(response.body());
+            // tracksの取得
+			JSONObject tracks = json.getJSONObject("tracks");
+            // tracksの中の楽曲データの取得
+			JSONArray data = tracks.getJSONArray("items");
+
+            // レスポンスの生成準備
+			builder = new StringBuilder();
+            // JSON形式でレスポンスデータを構成
+			builder.append("{\"data\":");
+			builder.append('[');
+			for(int i = 0; i < data.length(); i++){
+				builder.append('{');
+				builder.append("\"Album_Images\":\"").append(data.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url")).append("\",");
+				builder.append("\"Album_Id\":\"").append(data.getJSONObject(i).getJSONObject("album").get("id")).append("\",");
+				builder.append("\"Artist\":\"").append(data.getJSONObject(i).getJSONArray("artists").getJSONObject(0).get("name")).append("\",");
+				builder.append("\"Name\":\"").append(data.getJSONObject(i).get("name")).append("\",");
+				builder.append("\"uri\":\"").append(data.getJSONObject(i).get("uri")).append("\"");
+				builder.append("}");
+				if(i != data.length() - 1){
+					builder.append(",");
+				}
+			}
+			builder.append(']');
+			builder.append('}');
+
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+        // JSON形式作ったレスポンスデータを返す
+		return builder.toString();
+	}
 }
 
