@@ -21,6 +21,9 @@ public class Spotify {
     // 環境変数の読み込み準備
     Dotenv dotenv = Dotenv.configure().load();
 
+    // Spotifyシングルトンインスタンスの取得
+    private static Spotify spotify = new Spotify();
+
     // 環境変数からの読み込み
     private final String clientId = dotenv.get("CLIENT_ID");
 	private final String clientSecret = dotenv.get("CLIENT_SECRET");
@@ -42,9 +45,22 @@ public class Spotify {
 		"user-top-read",
 	};
     // ユーザーのAPI認証後に取得するcodeの格納変数
-    private String code = null;
+    private String code;
     // アクセストークンの格納変数
-	private String accessToken = null;
+	private String accessToken;
+
+    /**
+     * コンストラクタ
+     */
+    private Spotify(){
+		code = null;
+		accessToken = null;
+	}
+
+    // シングルトンインスタンスのゲッター
+    public static Spotify getInstance(){
+        return spotify;
+    }
     
     /**
      * ユーザー認証URLの発行メソッド
