@@ -66,7 +66,7 @@ public class Spotify {
      * ユーザー認証URLの発行メソッド
      */
     public String getAuthorizationUrl() throws UnsupportedEncodingException {
-        return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", authorizeUrl, clientId, URLEncoder.encode(redirectUri, "utf-8"), String.join(" ", scope), new SecureRandom());
+        return String.format("%s?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s", this.authorizeUrl, this.clientId, URLEncoder.encode(this.redirectUri, "utf-8"), String.join(" ", this.scope), new SecureRandom());
     }
 
     /**
@@ -80,9 +80,9 @@ public class Spotify {
         // HTTPリクエストの送信
 		HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://accounts.spotify.com/api/token"))
-			.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((clientId + ':' + clientSecret).getBytes(StandardCharsets.UTF_8)))
+			.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
 			.setHeader("Content-Type", "application/x-www-form-urlencoded")
-			.POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s", URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(code, "UTF-8"), URLEncoder.encode(redirectUri, "UTF-8"))))
+			.POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s", URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(this.code, "UTF-8"), URLEncoder.encode(this.redirectUri, "UTF-8"))))
             .build();
 		try {
 			// リクエストを送信
