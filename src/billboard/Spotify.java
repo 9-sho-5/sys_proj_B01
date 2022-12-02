@@ -103,6 +103,12 @@ public class Spotify {
         }
     }
 
+    /**
+     * 楽曲検索メソッド
+     * @param keyword
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public String search(String keyword) throws UnsupportedEncodingException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -154,6 +160,40 @@ public class Spotify {
             e.printStackTrace();
         }
         // JSON形式作ったレスポンスデータを返す
+        return builder.toString();
+    }
+
+    /**
+     * 楽曲追加メソッド
+     * @param playlistId
+     * @param uris
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public String addTrack(String playlistId, JSONObject uris) throws UnsupportedEncodingException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiEndpoint + String.format("/playlists/%s/tracks", playlistId)))
+                .setHeader("Authorization", "Bearer " + this.accessToken)
+                .setHeader("Content-Type", "application/json")
+                .POST(BodyPublishers.ofString(uris.toString()))
+                .build();
+
+        StringBuilder builder = null;
+        try {
+            // リクエストを送信
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            // レスポンスボディからレスポンスの取得
+            JSONObject json = new JSONObject(response.body());
+
+            builder = new StringBuilder();
+            builder.append('{');
+            builder.append("\"snapshot\":").append(json).append("");
+            builder.append('}');
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
         return builder.toString();
     }
 }
