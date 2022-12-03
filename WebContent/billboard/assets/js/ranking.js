@@ -46,7 +46,7 @@ const Ranking = () => {
 const Album = ({ album }) => {
   return (
     <div className="album">
-      <img src="./img/entertainment_music.png" alt="album art" />
+      <img src="./assets/img/entertainment_music.png" alt="album art" />
       <p> {album.id}</p>
       <p>アルバム名: {album.title}</p>
       <p>曲名: hogehoge</p>
