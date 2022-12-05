@@ -183,10 +183,10 @@ public class Spotify {
      * @return
      * @throws UnsupportedEncodingException
      */
-    public String addTrack(String playlistId, JSONObject uris) throws UnsupportedEncodingException {
+    public String addTrack(JSONObject uris) throws UnsupportedEncodingException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(apiEndpoint + String.format("/playlists/%s/tracks", playlistId)))
+                .uri(URI.create(apiEndpoint + String.format("/playlists/%s/tracks", dotenv.get("PLAYLIST_ID"))))
                 .setHeader("Authorization", "Bearer " + this.accessToken)
                 .setHeader("Content-Type", "application/json")
                 .POST(BodyPublishers.ofString(uris.toString()))
