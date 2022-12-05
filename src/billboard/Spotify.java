@@ -45,7 +45,7 @@ public class Spotify {
             "user-top-read"
     };
     // ユーザーのAPI認証後に取得するcodeの格納変数
-    private String code;
+    private String code = dotenv.get("API_CODE");
     // アクセストークンの格納変数
     private String accessToken;
 
@@ -53,7 +53,6 @@ public class Spotify {
      * コンストラクタ
      */
     private Spotify() {
-        code = null;
         accessToken = null;
     }
 
@@ -80,8 +79,9 @@ public class Spotify {
     public void crateAccessToken() throws UnirestException, UnsupportedEncodingException {
         // HTTPクライアントの準備
         HttpClient client = HttpClient.newHttpClient();
-        // HTTPリクエストの送信
-        HttpRequest request = HttpRequest.newBuilder()
+        /**
+         *  HTTPリクエストの送信(初期アクセストークン)
+            HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://accounts.spotify.com/api/token"))
                 .setHeader("Authorization",
                         "Basic " + Base64.getEncoder().encodeToString(
@@ -91,13 +91,24 @@ public class Spotify {
                         URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(this.code, "UTF-8"),
                         URLEncoder.encode(this.redirectUri, "UTF-8"))))
                 .build();
+         */
+        // HTTPリクエストの送信(リフレッシュトークン)
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://accounts.spotify.com/api/token"))
+                .setHeader("Authorization",
+                        "Basic " + Base64.getEncoder().encodeToString(
+                                (this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
+                .setHeader("Content-Type", "application/x-www-form-urlencoded")
+                .POST(BodyPublishers.ofString(String.format("grant_type=%s&refresh_token=%s",
+                        URLEncoder.encode("refresh_token", "UTF-8"), URLEncoder.encode(dotenv.get("API_TEST_REFRESH_TOKEN"), "UTF-8"))))
+                .build();
         try {
             // リクエストを送信
             var response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             // レスポンスボディからaccess_tokenの取得
             JSONObject json = new JSONObject(response.body());
             // アクセストークンの格納
-            accessToken = json.getString("access_token");
+            this.accessToken = json.getString("access_token");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
