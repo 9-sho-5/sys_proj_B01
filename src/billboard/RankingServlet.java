@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Ranking Servlet
  */
-@WebServlet("/api/ranking")
+@WebServlet("/billboard/ranking")
 public class RankingServlet extends HttpServlet {
 
     // MySQLの接続設定
