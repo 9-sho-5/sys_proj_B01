@@ -2,7 +2,6 @@ package billboard;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @WebServlet("/billboard/search")
-public class SearchServlet extends HttpServlet{
+public class SearchServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request,HttpServletResponse response) 
-    throws ServletException,IOException{
-        //paramsの取得
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // paramsの取得
         String keyword = request.getParameter("keyword");
 
         // レスポンスの取得準備
@@ -31,21 +30,18 @@ public class SearchServlet extends HttpServlet{
             e.printStackTrace();
         }
 
-        //レスポンスの取得
+        // レスポンスの取得
         builder.append(spotify.search(keyword));
 
-        //jsonの格納
+        // jsonの格納
         String json = builder.toString();
 
-        //レスポンスの送信
+        // レスポンスの送信
         response.setContentType("application/json");
-		PrintWriter writer = response.getWriter();
-		writer.append(json);
-		writer.flush();
+        PrintWriter writer = response.getWriter();
+        writer.append(json);
+        writer.flush();
 
-        
-        
     }
 
-    
 }
