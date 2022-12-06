@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 @WebServlet("/billboard/search")
 public class SearchServlet extends HttpServlet{
 
@@ -18,14 +20,16 @@ public class SearchServlet extends HttpServlet{
     throws ServletException,IOException{
         //paramsの取得
         String keyword = request.getParameter("keyword");
-        String code = request.getParameter("code");
 
         // レスポンスの取得準備
         StringBuilder builder = new StringBuilder();
         Spotify spotify = Spotify.getInstance();
-
-        //codeのセット
-        spotify.setCode(code);
+        try {
+            spotify.crateAccessToken();
+        } catch (UnirestException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         //レスポンスの取得
         builder.append(spotify.search(keyword));
