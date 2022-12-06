@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/billboard/api/search")
+@WebServlet("/billboard/search")
 public class SearchServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
