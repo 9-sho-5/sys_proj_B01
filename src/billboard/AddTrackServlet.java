@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 @WebServlet("/billboard/add_track")
-public class AddTrackServlet {
+public class AddTrackServlet extends HttpServlet{
     
     private static final long serialVersionUID = 1L;
 
@@ -20,10 +20,10 @@ public class AddTrackServlet {
     throws ServletException,IOException{
         //paramsの取得
         String trackId = request.getParameter("trackId");
-        String track_name = request.getParameter("track_name");
-        String album_name = request.getParameter("album_name");
-        String artist_name = request.getParameter("artist_name");
-        String album_image_uri = request.getParameter("album_image_uri");
+        // String track_name = request.getParameter("track_name");
+        // String album_name = request.getParameter("album_name");
+        // String artist_name = request.getParameter("artist_name");
+        // String album_image_uri = request.getParameter("album_image_uri");
 
         // レスポンスの準備
         StringBuilder builder = new StringBuilder();
@@ -36,7 +36,7 @@ public class AddTrackServlet {
         //データベースの接続
         Database.setUp();
         //データベースへのデータ追加
-        Database.insertData(track_name, artist_name, album_name, album_image_uri);
+        Database.insertData("track_name", "artist_name", "album_name", "album_image_uri");
 
 
         //レスポンスの取得
