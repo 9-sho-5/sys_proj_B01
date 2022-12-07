@@ -138,7 +138,7 @@ public class Database {
      * @param album_name
      * @param album_image_url
      */
-    public static void insertData(String track_name, String artist_name, String album_name, String album_image_url) {
+    public static void insertData(String track_id, String track_name, String artist_name, String album_name, String album_image_url) {
 
         System.out.println("=== insert Data ===");
 
