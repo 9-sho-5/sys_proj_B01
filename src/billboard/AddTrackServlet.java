@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 @WebServlet("/billboard/add_track")
 public class AddTrackServlet extends HttpServlet {
 
@@ -39,6 +41,12 @@ public class AddTrackServlet extends HttpServlet {
 
         // レスポンスの取得
         Spotify spotify = Spotify.getInstance();
+        try {
+            spotify.crateAccessToken();
+        } catch (UnirestException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         String json = spotify.addTrack(data);
 
         // レスポンスの送信
