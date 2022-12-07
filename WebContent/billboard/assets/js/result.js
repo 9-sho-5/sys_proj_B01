@@ -1,3 +1,4 @@
+import { postMusic } from "./assets/js/post-music.js";
 const useState = React.useState;
 const useEffect = React.useEffect;
 
@@ -5,8 +6,28 @@ const Result = () => {
   const [albums, setAlbums] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [requestResult, setRequestResult] = useState("");
   const url = new URL(window.location.href);
   const params = url.searchParams;
+  const handleRequest = async (
+    trackId,
+    trackName,
+    artistName,
+    albumName,
+    albumImageURL
+  ) => {
+    console.log("aaaa");
+    const isRequested = await postMusic(
+      trackId,
+      trackName,
+      artistName,
+      albumName,
+      albumImageURL
+    );
+    if (isRequested) {
+      setRequestResult("送信に成功しました");
+    } else setRequestResult("送信に失敗しました");
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,7 +59,10 @@ const Result = () => {
     <>
       <Header />
       <h1>検索結果</h1>
-      {albums && albums.map((album) => <Album album={album} />)}
+      {albums &&
+        albums.map((album) => (
+          <Album album={album} handleRequest={handleRequest} />
+        ))}
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>}
@@ -48,14 +72,16 @@ const Result = () => {
   );
 };
 
-const Album = ({ album }) => {
+const Album = ({ album, handleRequest }) => {
   return (
     <div className="album">
       <img src="./assets/img/entertainment_music.png" alt="album art" />
       <p>ID: {album.id}</p>
       <p>アルバム名: {album.title}</p>
       <p>曲名: hogehoge</p>
-      <button>リクエストする</button>
+      <button onClick={() => handleRequest(1, 1, 1, 1, 1)}>
+        リクエストする
+      </button>
     </div>
   );
 };
