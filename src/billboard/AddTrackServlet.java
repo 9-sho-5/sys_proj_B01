@@ -34,10 +34,9 @@ public class AddTrackServlet {
         JSONObject object = new JSONObject(uris);
 
         //データベースの接続
-        Database database = new Database();
-        database.setUp();
+        Database.setUp();
         //データベースへのデータ追加
-        database.insertData(track_name, artist_name, album_name, album_image_uri);
+        Database.insertData(track_name, artist_name, album_name, album_image_uri);
 
 
         //レスポンスの取得
