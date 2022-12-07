@@ -33,6 +33,12 @@ public class AddTrackServlet {
         String uris = "{\"uris\":"+trackId+"\"]}";
         JSONObject object = new JSONObject(uris);
 
+        //データベースの接続
+        Database.setUp();
+        //データベースへのデータ追加
+        Database.insertData(track_name, artist_name, album_name, album_image_uri);
+
+
         //レスポンスの取得
         builder.append(spotify.addTrack(object));
 
