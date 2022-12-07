@@ -16,7 +16,7 @@ public class AddTrackServlet {
     
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request,HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request,HttpServletResponse response) 
     throws ServletException,IOException{
         //paramsの取得
         String trackId = request.getParameter("trackId");
@@ -30,7 +30,7 @@ public class AddTrackServlet {
         Spotify spotify = Spotify.getInstance();
 
         //リクエストの作成
-        String uris = "{\"uris\":[\"spotify:track:"+trackId+"\"]}";
+        String uris = "{\"uris\":"+trackId+"\"]}";
         JSONObject object = new JSONObject(uris);
 
         //レスポンスの取得
