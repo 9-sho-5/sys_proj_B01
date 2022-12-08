@@ -114,6 +114,53 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * データベースからデータ取得
+     * @return
+     */
+    public static String getData() {
+
+        // レスポンスの格納変数
+        StringBuilder builder = null;
+
+        // データベースとの接続
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement();) {
+
+            // データの取得
+            String sql = String.format("select * from Ranking;");
+            try {
+
+                // データベースからデータの全件取得
+                ResultSet rs = stmt.executeQuery(sql);
+                System.out.println("get data completely!!");
+                // レスポンスの生成準備
+                builder = new StringBuilder();
+                // JSON形式でレスポンスデータを構成
+                builder.append("{\"data\":");
+                builder.append('[');
+                while(rs.next()){
+                    builder.append('{');
+                    builder.append("\"track_name\":\"").append(rs.getString("track_name")).append("\",");
+                    builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
+                    builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
+                    builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\"");
+                    builder.append("}");
+                    builder.append(",");
+                }
+                builder.delete(builder.length() - 1, builder.length());
+                builder.append(']');
+                builder.append('}');
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return builder.toString();
     }
 }
