@@ -37,7 +37,7 @@ public class AddTrackServlet extends HttpServlet {
         // データベースの接続
         Database.setUp();
         // データベースへのデータ追加
-        Database.insertData("trackId", "track_name", "artist_name", "album_name", "album_image_uri");
+        Database.insertData(trackId, track_name, artist_name, album_name, album_image_uri);
 
         // レスポンスの取得
         Spotify spotify = Spotify.getInstance();
