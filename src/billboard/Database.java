@@ -102,7 +102,7 @@ public class Database {
 
             // データの挿入
             String sql = String.format(
-                    "insert into Ranking(track_name, artist_name, album_name, album_image_url) values ('%s', '%s', '%s', '%s');",
+                    "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url) values ('%s', '%s', '%s', '%s', '%s');",
                     track_name, artist_name, album_name, album_image_url);
             try {
                 stmt.executeUpdate(sql);
