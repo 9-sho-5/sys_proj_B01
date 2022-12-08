@@ -144,6 +144,7 @@ public class Database {
                 builder.append('[');
                 while(rs.next()){
                     builder.append('{');
+                    builder.append("\"track_id\":\"").append(rs.getString("track_id")).append("\",");
                     builder.append("\"track_name\":\"").append(rs.getString("track_name")).append("\",");
                     builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
                     builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
