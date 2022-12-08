@@ -47,7 +47,8 @@ public class Database {
                     + "track_name text,"
                     + "artist_name text,"
                     + "album_name text,"
-                    + "album_image_url text);";
+                    + "album_image_url text,"
+                    + "access text);";
             try {
                 stmt.executeUpdate(sql);
                 System.out.println("Table created successfully...");
@@ -103,7 +104,7 @@ public class Database {
 
             // データの挿入
             String sql = String.format(
-                    "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url) values ('%s', '%s', '%s', '%s', '%s');",
+                    "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
                     track_id, track_name, artist_name, album_name, album_image_url);
             try {
                 stmt.executeUpdate(sql);
@@ -126,12 +127,29 @@ public class Database {
         // レスポンスの格納変数
         StringBuilder builder = null;
 
+         // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
         // データベースとの接続
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
+            // データベースの作成
+            String sql = "sqlite3 sys_proj_B01.sqlite3;";
+            try {
+                stmt.executeUpdate(sql);
+                System.out.println("created Database successfully...");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
             // データの取得
-            String sql = String.format("select * from Ranking;");
+            sql = String.format("select * from Ranking;");
             try {
 
                 // データベースからデータの全件取得
@@ -148,7 +166,8 @@ public class Database {
                     builder.append("\"track_name\":\"").append(rs.getString("track_name")).append("\",");
                     builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
                     builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
-                    builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\"");
+                    builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\",");
+                    builder.append("\"access\":\"").append(rs.getString("access")).append("\"");
                     builder.append("}");
                     builder.append(",");
                 }
