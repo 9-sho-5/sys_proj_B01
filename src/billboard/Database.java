@@ -127,12 +127,29 @@ public class Database {
         // レスポンスの格納変数
         StringBuilder builder = null;
 
+         // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
         // データベースとの接続
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
+            // データベースの作成
+            String sql = "sqlite3 sys_proj_B01.sqlite3;";
+            try {
+                stmt.executeUpdate(sql);
+                System.out.println("created Database successfully...");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
             // データの取得
-            String sql = String.format("select * from Ranking;");
+            sql = String.format("select * from Ranking;");
             try {
 
                 // データベースからデータの全件取得
