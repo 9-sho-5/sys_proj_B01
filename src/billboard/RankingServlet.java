@@ -21,32 +21,29 @@ import javax.servlet.http.HttpServletResponse;
 public class RankingServlet extends HttpServlet {
 
     // MySQLの接続設定
-    static final String DB_URL = "jdbc:mysql://localhost/";
-    static final String USER = "root";
-    static final String PASS = "";
+    static final String DB_URL = "jdbc:sqlite:sys_proj_B01.sqlite3";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
 		System.out.println("=== Get Data ===");
 
+        // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
         // レスポンスの格納変数
         StringBuilder builder = null;
 
         // データベースとの接続
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
-            // 作成したデータベースの使用
-            String sql = "USE sys_proj_B01; ";
-            try {
-                stmt.executeUpdate(sql);
-                System.out.println("use Database successfully...");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
             // データの取得
-            sql = String.format("select * from Ranking;");
+            String sql = String.format("select * from Ranking;");
             try {
 
                 // データベースからデータの全件取得
