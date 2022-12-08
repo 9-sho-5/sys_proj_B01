@@ -153,7 +153,7 @@ public class Spotify {
                 builder.append("\"album_image_url\":\"").append(
                         data.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url"))
                         .append("\",");
-                builder.append("\"album_name\":\"").append(data.getJSONObject(i).getJSONObject("album").get("id"))
+                builder.append("\"album_name\":\"").append(data.getJSONObject(i).getJSONObject("album").get("name"))
                         .append("\",");
                 builder.append("\"artist_name\":\"")
                         .append(data.getJSONObject(i).getJSONArray("artists").getJSONObject(0).get("name"))
