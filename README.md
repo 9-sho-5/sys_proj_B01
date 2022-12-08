@@ -34,3 +34,18 @@ $ git remtoe add upstream 本家リポジトリURL
 $ git fetch upstream
 $ git merge upstream/master
 ```
+
+### データベースの確認
+```
+// データベースに接続
+$ sqlite3 sys_proj_B01.sqlite3
+
+// データ表示する際にカラムを表示
+sqlite> .headers ON
+
+// テーブルの確認
+sqlite> .tables
+
+// データの確認
+sqlite> select * from Ranking;
+```
