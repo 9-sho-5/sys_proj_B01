@@ -48,4 +48,7 @@ sqlite> .tables
 
 // データの確認
 sqlite> select * from Ranking;
+
+// sqlite終了
+sqlite> .exit
 ```
