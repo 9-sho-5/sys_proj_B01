@@ -43,6 +43,7 @@ public class Database {
             // テーブルの作成
             sql = "CREATE TABLE Ranking (\n"
                     + "id integer primary key autoincrement,"
+                    + "track_id text,"
                     + "track_name text,"
                     + "artist_name text,"
                     + "album_name text,"
@@ -103,7 +104,7 @@ public class Database {
             // データの挿入
             String sql = String.format(
                     "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url) values ('%s', '%s', '%s', '%s', '%s');",
-                    track_name, artist_name, album_name, album_image_url);
+                    track_id, track_name, artist_name, album_name, album_image_url);
             try {
                 stmt.executeUpdate(sql);
                 System.out.println("inserted data completely!!");
