@@ -18,14 +18,6 @@ public class RankingServlet extends HttpServlet {
         
 		System.out.println("=== Get Data ===");
 
-        // ライブラリのパス設定
-        try {
-            Class.forName("org.sqlite.JDBC");
-            System.out.println("set lib path");
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
         String json = Database.getData();
 
         // JSONを文字列に変換
