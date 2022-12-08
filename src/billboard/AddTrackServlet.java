@@ -2,7 +2,6 @@ package billboard;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class AddTrackServlet extends HttpServlet {
         String track_name = request.getParameter("track_name");
         String album_name = request.getParameter("album_name");
         String artist_name = request.getParameter("artist_name");
-        String album_image_uri = request.getParameter("album_image_uri");
+        String album_image_url = request.getParameter("album_image_url");
 
         // リクエストの作成
         JSONObject data = new JSONObject();
@@ -37,7 +36,7 @@ public class AddTrackServlet extends HttpServlet {
         // データベースの接続
         Database.setUp();
         // データベースへのデータ追加
-        Database.insertData("trackId", "track_name", "artist_name", "album_name", "album_image_uri");
+        Database.insertData(trackId, track_name, artist_name, album_name, album_image_url);
 
         // レスポンスの取得
         Spotify spotify = Spotify.getInstance();
