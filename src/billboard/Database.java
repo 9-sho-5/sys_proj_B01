@@ -149,7 +149,7 @@ public class Database {
                     builder.append("\"track_name\":\"").append(rs.getString("track_name")).append("\",");
                     builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
                     builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
-                    builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\"");
+                    builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\",");
                     builder.append("\"access\":\"").append(rs.getString("access")).append("\"");
                     builder.append("}");
                     builder.append(",");
