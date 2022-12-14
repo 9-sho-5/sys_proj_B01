@@ -18,6 +18,10 @@ public class RankingServlet extends HttpServlet {
         
 		System.out.println("=== Get Data ===");
 
+        // データベースの接続
+        Database.setUp();
+
+        // データベースからデータの取得
         String json = Database.getData();
 
         // JSONを文字列に変換
