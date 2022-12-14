@@ -9,3 +9,5 @@
 
 # sqliteの追跡外す
 .sqlite3
+
+WebContent/WEB-INF/classes/billboard/*.class
