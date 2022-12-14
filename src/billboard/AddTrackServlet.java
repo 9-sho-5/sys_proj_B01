@@ -33,8 +33,6 @@ public class AddTrackServlet extends HttpServlet {
         urisArray.put(trackId);
         data.put("uris", urisArray);
 
-        // データベースの接続
-        Database.setUp();
         // データベースへのデータ追加
         Database.insertData(trackId, track_name, artist_name, album_name, album_image_url);
 
