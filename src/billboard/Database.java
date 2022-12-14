@@ -97,16 +97,19 @@ public class Database {
 
             System.out.println("connected Database successfully...");
 
-            // データの挿入
-            String sql = String.format(
-                    "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
-                    track_id, track_name, artist_name, album_name, album_image_url);
-            try {
-                stmt.executeUpdate(sql);
-                System.out.println("inserted data completely!!");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            if(!exists(track_id)){
+                // データの挿入
+                String sql = String.format(
+                        "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
+                        track_id, track_name, artist_name, album_name, album_image_url);
+                try {
+                    stmt.executeUpdate(sql);
+                    System.out.println("inserted data completely!!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
+
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -173,5 +176,54 @@ public class Database {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * 指定のトラックがデータベースの存在するかどうかを判定
+     * @param track_id
+     * @return
+     */
+    public static Boolean exists(String track_id) {
+
+        System.out.println("=== firstOrCreate ===");
+
+        // 引数のtrack_idがデータベースに存在するかの判定フラグ
+        Boolean flg = false;
+
+        // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        // データベースとの接続
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement();) {
+
+            // 引数のtrack_idの数を取得するSQL文
+            String sql = String.format("select count(track_id) from Ranking where track_id = '%s';", track_id);
+            try {
+
+                // 引数のtrack_idの数を取得
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while(rs.next()){
+                    // データベースにすでに存在していれば、flgをtrueにする
+                    if(Integer.parseInt(rs.getString("count(track_id)")) != 0){
+                        flg = true;
+                    }
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return flg;
     }
 }
