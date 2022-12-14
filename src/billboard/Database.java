@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Database {
 
@@ -87,10 +85,13 @@ public class Database {
      * @param album_name
      * @param album_image_url
      */
-    public static void insertData(String track_id, String track_name, String artist_name, String album_name,
+    public static Boolean insertData(String track_id, String track_name, String artist_name, String album_name,
             String album_image_url) {
 
         System.out.println("=== insert Data ===");
+
+        //データベースにtrackを保存できたかの判定フラグ
+        Boolean track_inserted_flg = false;
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
@@ -110,6 +111,8 @@ public class Database {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
+
+                track_inserted_flg = true;
             // track_idがデータベースにすでに存在する場合、accsessを+1する
             } else {
                 System.out.println("This track is already exists...");
@@ -127,6 +130,8 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return track_inserted_flg;
     }
 
     /**

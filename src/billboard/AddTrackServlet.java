@@ -33,8 +33,8 @@ public class AddTrackServlet extends HttpServlet {
         urisArray.put(trackId);
         data.put("uris", urisArray);
 
-        // データベースへのデータ追加
-        Database.insertData(trackId, track_name, artist_name, album_name, album_image_url);
+        // データベースへのデータ追加 & 追加できたかのフラグ取得
+        Boolean inserted_success_flg = Database.insertData(trackId, track_name, artist_name, album_name, album_image_url);
 
         // レスポンスの取得
         Spotify spotify = Spotify.getInstance();
@@ -44,7 +44,12 @@ public class AddTrackServlet extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        String json = spotify.addTrack(data);
+
+        // レスポンスのString JSONの初期値
+        String json = "";
+        // データ挿入ができたとき、SpotifyのPlaylistに追加する
+        if(inserted_success_flg)
+            json = spotify.addTrack(data);
 
         // レスポンスの送信
         response.setContentType("application/json");
