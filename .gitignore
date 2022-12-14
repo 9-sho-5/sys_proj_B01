@@ -8,4 +8,6 @@
 .env
 
 # sqliteの追跡外す
-.sqlite3
+*.sqlite3
+
+WebContent/WEB-INF/classes/billboard/*.class
