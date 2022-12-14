@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Database {
 
@@ -41,7 +39,7 @@ public class Database {
                     + "artist_name text,"
                     + "album_name text,"
                     + "album_image_url text,"
-                    + "access text);";
+                    + "access integer);";
             try {
                 stmt.executeUpdate(sql);
                 System.out.println("Table created successfully...");
@@ -87,30 +85,53 @@ public class Database {
      * @param album_name
      * @param album_image_url
      */
-    public static void insertData(String track_id, String track_name, String artist_name, String album_name,
+    public static Boolean insertData(String track_id, String track_name, String artist_name, String album_name,
             String album_image_url) {
 
         System.out.println("=== insert Data ===");
+
+        //データベースにtrackを保存できたかの判定フラグ
+        Boolean track_inserted_flg = false;
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
             System.out.println("connected Database successfully...");
 
-            // データの挿入
-            String sql = String.format(
-                    "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
-                    track_id, track_name, artist_name, album_name, album_image_url);
-            try {
-                stmt.executeUpdate(sql);
-                System.out.println("inserted data completely!!");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            // track_idがデータベースになければ、データベースに保存する
+            if(!exists(track_id)){
+                System.out.println("New Data!!");
+                // データの挿入
+                String sql = String.format(
+                        "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
+                        track_id, track_name, artist_name, album_name, album_image_url);
+                try {
+                    stmt.executeUpdate(sql);
+                    System.out.println("inserted data completely!!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                track_inserted_flg = true;
+            // track_idがデータベースにすでに存在する場合、accsessを+1する
+            } else {
+                System.out.println("This track is already exists...");
+                // access数の更新
+                String sql = String.format("update Ranking set access = access + 1 where track_id = '%s';", track_id);
+                try {
+                    stmt.executeUpdate(sql);
+                    System.out.println("update data completely!!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
+
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return track_inserted_flg;
     }
 
     /**
@@ -153,7 +174,7 @@ public class Database {
                     builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
                     builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
                     builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\",");
-                    builder.append("\"access\":\"").append(rs.getString("access")).append("\"");
+                    builder.append("\"access\":\"").append(rs.getInt("access")).append("\"");
                     builder.append("}");
                     builder.append(",");
                 }
@@ -173,5 +194,54 @@ public class Database {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * 指定のトラックがデータベースの存在するかどうかを判定
+     * @param track_id
+     * @return
+     */
+    public static Boolean exists(String track_id) {
+
+        System.out.println("=== firstOrCreate ===");
+
+        // 引数のtrack_idがデータベースに存在するかの判定フラグ
+        Boolean flg = false;
+
+        // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+        // データベースとの接続
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement();) {
+
+            // 引数のtrack_idの数を取得するSQL文
+            String sql = String.format("select count(track_id) from Ranking where track_id = '%s';", track_id);
+            try {
+
+                // 引数のtrack_idの数を取得
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while(rs.next()){
+                    // データベースにすでに存在していれば、flgをtrueにする
+                    if(Integer.parseInt(rs.getString("count(track_id)")) != 0){
+                        flg = true;
+                    }
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return flg;
     }
 }
