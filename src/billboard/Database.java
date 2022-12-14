@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
 
@@ -155,7 +157,11 @@ public class Database {
                     builder.append("}");
                     builder.append(",");
                 }
-                builder.delete(builder.length() - 1, builder.length());
+                char[] checkArray = new char[1];
+                builder.getChars(builder.length() - 1, builder.length(), checkArray, 0);
+                if(checkArray[0] == ','){
+                    builder.delete(builder.length() - 1, builder.length());
+                }
                 builder.append(']');
                 builder.append('}');
             } catch (SQLException e) {
