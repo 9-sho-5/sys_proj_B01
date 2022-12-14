@@ -41,7 +41,7 @@ public class Database {
                     + "artist_name text,"
                     + "album_name text,"
                     + "album_image_url text,"
-                    + "access text);";
+                    + "access integer);";
             try {
                 stmt.executeUpdate(sql);
                 System.out.println("Table created successfully...");
@@ -97,7 +97,9 @@ public class Database {
 
             System.out.println("connected Database successfully...");
 
+            // track_idがデータベースになければ、データベースに保存する
             if(!exists(track_id)){
+                System.out.println("New Data!!");
                 // データの挿入
                 String sql = String.format(
                         "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
@@ -105,6 +107,17 @@ public class Database {
                 try {
                     stmt.executeUpdate(sql);
                     System.out.println("inserted data completely!!");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            // track_idがデータベースにすでに存在する場合、accsessを+1する
+            } else {
+                System.out.println("This track is already exists...");
+                // access数の更新
+                String sql = String.format("update Ranking set access = access + 1 where track_id = '%s';", track_id);
+                try {
+                    stmt.executeUpdate(sql);
+                    System.out.println("update data completely!!");
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
@@ -156,7 +169,7 @@ public class Database {
                     builder.append("\"artist_name\":\"").append(rs.getString("artist_name")).append("\",");
                     builder.append("\"album_name\":\"").append(rs.getString("album_name")).append("\",");
                     builder.append("\"album_image_url\":\"").append(rs.getString("album_image_url")).append("\",");
-                    builder.append("\"access\":\"").append(rs.getString("access")).append("\"");
+                    builder.append("\"access\":\"").append(rs.getInt("access")).append("\"");
                     builder.append("}");
                     builder.append(",");
                 }
