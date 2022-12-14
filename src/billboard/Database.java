@@ -31,17 +31,8 @@ public class Database {
 
             System.out.println("connected Database successfully...");
 
-            // データベースの作成
-            String sql = "sqlite3 sys_proj_B01.sqlite3;";
-            try {
-                stmt.executeUpdate(sql);
-                System.out.println("created Database successfully...");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
             // テーブルの作成
-            sql = "CREATE TABLE Ranking (\n"
+            String sql = "CREATE TABLE Ranking (\n"
                     + "id integer primary key autoincrement,"
                     + "track_id text,"
                     + "track_name text,"
@@ -53,7 +44,7 @@ public class Database {
                 stmt.executeUpdate(sql);
                 System.out.println("Table created successfully...");
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Table already exists...");
             }
             stmt.close();
         } catch (SQLException e) {
@@ -102,6 +93,8 @@ public class Database {
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
+            System.out.println("connected Database successfully...");
+
             // データの挿入
             String sql = String.format(
                     "insert into Ranking(track_id, track_name, artist_name, album_name, album_image_url, access) values ('%s', '%s', '%s', '%s', '%s', 1);",
@@ -139,17 +132,8 @@ public class Database {
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
-            // データベースの作成
-            String sql = "sqlite3 sys_proj_B01.sqlite3;";
-            try {
-                stmt.executeUpdate(sql);
-                System.out.println("created Database successfully...");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
             // データの取得
-            sql = String.format("select * from Ranking;");
+            String sql = String.format("select * from Ranking;");
             try {
 
                 // データベースからデータの全件取得
