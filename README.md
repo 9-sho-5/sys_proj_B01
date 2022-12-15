@@ -1,5 +1,16 @@
 # sys_prj_B01
 
+## 使用技術
+
+### Database
+SQLite
+
+### API
+Spotify API
+
+### JavaScript フレームワーク
+React.js
+
 ## プログラムコンパイル
 ```
 $ javac -d WebContent/WEB-INF/classes -cp "lib/*" src/billboard/*.java
@@ -35,7 +46,7 @@ $ git fetch upstream
 $ git merge upstream/master
 ```
 
-### データベースの確認
+## データベースの確認
 ```
 // データベースに接続
 $ sqlite3 sys_proj_B01.sqlite3
