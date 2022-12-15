@@ -2,14 +2,20 @@
 
 ## 使用技術
 
+### Management
+[![My Skills](https://skillicons.dev/icons?i=github,vscode,discord&theme=dark)](https://skillicons.dev)
+
+### 言語
+[![My Skills](https://skillicons.dev/icons?i=java,html,css,javascript&theme=dark)](https://skillicons.dev)
+
 ### Database
-SQLite
+[![My Skills](https://skillicons.dev/icons?i=sqlite&theme=dark)](https://skillicons.dev)
 
 ### API
 Spotify API
 
 ### JavaScript フレームワーク
-React.js
+[![My Skills](https://skillicons.dev/icons?i=react&theme=dark)](https://skillicons.dev)
 
 ## プログラムコンパイル
 ```
