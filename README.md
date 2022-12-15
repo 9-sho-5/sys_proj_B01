@@ -3,7 +3,7 @@
 ## 使用技術
 
 ### Management
-[![My Skills](https://skillicons.dev/icons?i=github,vscode,discord&theme=dark)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=github,vscode,discord&theme=dark)](https://skillicons.dev)&nbsp;&nbsp;<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/1200px-Notion-logo.svg.png" style="height:50px;width:50px;">&nbsp;<img src="https://www.g-workspace.jp/wp-content/uploads/Sheets_Product_Icon_512dp.png" style="height:50px;width:50px;">
 
 ### 言語
 [![My Skills](https://skillicons.dev/icons?i=java,html,css,javascript&theme=dark)](https://skillicons.dev)
