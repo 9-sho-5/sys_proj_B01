@@ -11,8 +11,8 @@
 ### Database
 [![My Skills](https://skillicons.dev/icons?i=sqlite&theme=dark)](https://skillicons.dev)
 
-### API
-Spotify API
+### Spotify API
+<img src="https://user-images.githubusercontent.com/61298948/207748534-ab6c47b9-173c-4aaa-b95e-fd59143146b3.png" style="height:50px;width:50px;">
 
 ### JavaScript フレームワーク
 [![My Skills](https://skillicons.dev/icons?i=react&theme=dark)](https://skillicons.dev)
