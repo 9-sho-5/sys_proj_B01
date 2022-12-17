@@ -28,10 +28,14 @@
 ```
 ※ 今回、ライブラリを格納するディレクトリ名は「lib」とする
 
-
 ## プログラムコンパイル
+*billboard/*
 ```
 $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
+```
+*server/*
+```
+$ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
 ```
 
 ## サーバーの実行
