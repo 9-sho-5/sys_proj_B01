@@ -18,12 +18,7 @@ public class Database {
     public static void setUp() {
 
         // ライブラリのパス設定
-        try {
-            Class.forName("org.sqlite.JDBC");
-            System.out.println("set lib path");
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        setLibPath();
 
         // データベースとの接続
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -93,6 +88,9 @@ public class Database {
         //データベースにtrackを保存できたかの判定フラグ
         Boolean track_inserted_flg = false;
 
+        // ライブラリのパス設定
+        setLibPath();
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
@@ -143,13 +141,8 @@ public class Database {
         // レスポンスの格納変数
         StringBuilder builder = null;
 
-         // ライブラリのパス設定
-        try {
-            Class.forName("org.sqlite.JDBC");
-            System.out.println("set lib path");
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        // ライブラリのパス設定
+        setLibPath();
 
         // データベースとの接続
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -209,12 +202,7 @@ public class Database {
         Boolean flg = false;
 
         // ライブラリのパス設定
-        try {
-            Class.forName("org.sqlite.JDBC");
-            System.out.println("set lib path");
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        setLibPath();
 
         // データベースとの接続
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -243,5 +231,15 @@ public class Database {
         }
 
         return flg;
+    }
+
+    public static void setLibPath() {
+        // ライブラリのパス設定
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("set lib path");
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 }
