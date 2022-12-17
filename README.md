@@ -28,12 +28,12 @@
 
 ## プログラムコンパイル
 ```
-$ javac -d WebContent/WEB-INF/classes -cp "lib/*" src/billboard/*.java
+$ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
 ```
 
 ## サーバーの実行
 ```
-$ java -cp "lib/*:bin" server.AppServer 8080 /isp2 WebContent
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
 ```
 
 ## Git管理
