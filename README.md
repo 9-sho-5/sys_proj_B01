@@ -19,11 +19,14 @@
 
 ## Setting for VSCode
 *setting.json*
+
+ライブラリパスの設定
 ```
 "java.project.referencedLibraries": [
     "**/lib/*.jar"
 ]
 ```
+※ 今回、ライブラリを格納するディレクトリ名は「lib」とする
 
 
 ## プログラムコンパイル
