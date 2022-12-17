@@ -17,6 +17,15 @@
 ### JavaScript フレームワーク
 [![My Skills](https://skillicons.dev/icons?i=react&theme=dark)](https://skillicons.dev)
 
+## Setting for VSCode
+*setting.json*
+```
+"java.project.referencedLibraries": [
+    "**/lib/*.jar"
+]
+```
+
+
 ## プログラムコンパイル
 ```
 $ javac -d WebContent/WEB-INF/classes -cp "lib/*" src/billboard/*.java
