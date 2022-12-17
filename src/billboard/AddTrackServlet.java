@@ -21,7 +21,7 @@ public class AddTrackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // paramsの取得
-        String trackId = request.getParameter("trackId");
+        String track_id = request.getParameter("track_id");
         String track_name = request.getParameter("track_name");
         String album_name = request.getParameter("album_name");
         String artist_name = request.getParameter("artist_name");
@@ -30,11 +30,11 @@ public class AddTrackServlet extends HttpServlet {
         // リクエストの作成
         JSONObject data = new JSONObject();
         JSONArray urisArray = new JSONArray();
-        urisArray.put(trackId);
+        urisArray.put(track_id);
         data.put("uris", urisArray);
 
         // データベースへのデータ追加 & 追加できたかのフラグ取得
-        Boolean inserted_success_flg = Database.insertData(trackId, track_name, artist_name, album_name, album_image_url);
+        Boolean inserted_success_flg = Database.insertData(track_id, track_name, artist_name, album_name, album_image_url);
 
         // レスポンスの取得
         Spotify spotify = Spotify.getInstance();
