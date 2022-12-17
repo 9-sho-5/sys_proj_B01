@@ -156,7 +156,7 @@ public class Database {
                 Statement stmt = conn.createStatement();) {
 
             // データの取得
-            String sql = String.format("select * from Ranking;");
+            String sql = String.format("select * from Ranking order by access desc;");
             try {
 
                 // データベースからデータの全件取得
