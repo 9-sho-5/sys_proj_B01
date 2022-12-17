@@ -155,8 +155,8 @@ public class Database {
         try (Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement();) {
 
-            // データの取得
-            String sql = String.format("select * from Ranking;");
+            // データの取得(accessの多い順にソート & 取得件数20に制限)
+            String sql = String.format("select * from Ranking order by access desc limit 20;");
             try {
 
                 // データベースからデータの全件取得
