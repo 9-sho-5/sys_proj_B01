@@ -61,3 +61,15 @@ sqlite> select * from Ranking;
 // sqlite終了
 sqlite> .exit
 ```
+
+## 環境変数
+*.env*
+```
+CLIENT_ID="クライアントID"
+CLIENT_SECRET="クライアントシークレットID"
+REDIRECT_URI="http://localhost:8080/isp2/billboard/callback"
+AUTHORIZE_URL="https://accounts.spotify.com/authorize"
+API_ENDPOINT="https://api.spotify.com/v1"
+API_TEST_REFRESH_TOKEN="リフレッシュトークン生成用の初期リフレッシュトークン"
+PLAYLIST_ID="BillBoard用のPlaylistのId"
+```
