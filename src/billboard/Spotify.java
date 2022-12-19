@@ -16,7 +16,7 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.nio.charset.StandardCharsets;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class Spotify {
+public final class Spotify {
 
     // 環境変数の読み込み準備
     Dotenv dotenv = Dotenv.configure().load();

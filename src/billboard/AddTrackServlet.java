@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @WebServlet("/billboard/add_track")
-public class AddTrackServlet extends HttpServlet {
+public final class AddTrackServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

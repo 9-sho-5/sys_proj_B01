@@ -12,7 +12,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.webapp.WebInfConfiguration;
 import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
-public class WarServer {
+public final class WarServer {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 3){
