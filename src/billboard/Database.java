@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Database {
+public final class Database {
 
     // MySQLの接続設定
     private final static String DB_URL = "jdbc:sqlite:sys_proj_B01.sqlite3";

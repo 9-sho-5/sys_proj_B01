@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * Ranking Servlet
  */
 @WebServlet("/billboard/ranking")
-public class RankingServlet extends HttpServlet {
+public final class RankingServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         

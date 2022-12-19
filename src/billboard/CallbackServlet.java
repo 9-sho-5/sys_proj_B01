@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @WebServlet("/billboard/callback")
-public class CallbackServlet extends HttpServlet {
+public final class CallbackServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
