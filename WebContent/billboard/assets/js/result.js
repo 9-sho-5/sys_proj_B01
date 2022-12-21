@@ -1,4 +1,4 @@
-import { postMusic } from "./assets/js/post-music.js";
+import { getSearch } from "./assets/js/get-search.js";
 const useState = React.useState;
 const useEffect = React.useEffect;
 
@@ -9,50 +9,22 @@ const Result = () => {
   const [requestResult, setRequestResult] = useState("");
   const url = new URL(window.location.href);
   const params = url.searchParams;
-  const handleRequest = async (
-    trackId,
-    trackName,
-    artistName,
-    albumName,
-    albumImageURL
-  ) => {
-    console.log("aaaa");
-    const isRequested = await postMusic(
-      trackId,
-      trackName,
-      artistName,
-      albumName,
-      albumImageURL
-    );
-    if (isRequested) {
-      setRequestResult("送信に成功しました");
-    } else setRequestResult("送信に失敗しました");
-  };
+  const value = params.get("value");
 
   useEffect(() => {
-    setIsLoading(true);
-    if (!params.get("value")) {
-      setError("取得できませんでした");
-      setIsLoading(false);
-    } else {
-      fetch(`https://jsonplaceholder.typicode.com/albums`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("error");
-          }
-          console.log(response);
-          return response.json();
-        })
-        .then((data) => {
-          setAlbums(data);
-          setIsLoading(false);
-          console.log(data);
-        })
-        .catch((error) => {
-          setError("取得できませんでした");
-          setIsLoading(false);
-        });
-    }
+    (async () => {
+      setIsLoading(true);
+      if (!value) {
+        setError("キーワードを入力してください");
+        setIsLoading(false);
+      } else {
+        const searchResult = await getSearch(value);
+        searchResult
+          ? setAlbums(searchResult.data)
+          : setError("楽曲が見つかりませんでした");
+        setIsLoading(false);
+      }
+    })();
   }, []);
 
   return (
@@ -75,13 +47,11 @@ const Result = () => {
 const Album = ({ album, handleRequest }) => {
   return (
     <div className="album">
-      <img src="./assets/img/entertainment_music.png" alt="album art" />
-      <p>ID: {album.id}</p>
-      <p>アルバム名: {album.title}</p>
-      <p>曲名: hogehoge</p>
-      <button onClick={() => handleRequest(1, 1, 1, 1, 1)}>
-        リクエストする
-      </button>
+      <img src={album.album_image_url} alt="album art" />
+      <p>アルバム名: {album.album_name}</p>
+      <p>曲名: {album.track_name}</p>
+      <p>アーティスト名: {album.artist_name}</p>
+      <button>リクエストする</button>
     </div>
   );
 };

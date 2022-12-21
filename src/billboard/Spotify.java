@@ -16,7 +16,7 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.nio.charset.StandardCharsets;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class Spotify {
+public final class Spotify {
 
     // 環境変数の読み込み準備
     Dotenv dotenv = Dotenv.configure().load();
@@ -150,16 +150,16 @@ public class Spotify {
             builder.append('[');
             for (int i = 0; i < data.length(); i++) {
                 builder.append('{');
-                builder.append("\"Album_Images\":\"").append(
+                builder.append("\"album_image_url\":\"").append(
                         data.getJSONObject(i).getJSONObject("album").getJSONArray("images").getJSONObject(0).get("url"))
                         .append("\",");
-                builder.append("\"Album_Id\":\"").append(data.getJSONObject(i).getJSONObject("album").get("id"))
+                builder.append("\"album_name\":\"").append(data.getJSONObject(i).getJSONObject("album").get("name"))
                         .append("\",");
-                builder.append("\"Artist\":\"")
+                builder.append("\"artist_name\":\"")
                         .append(data.getJSONObject(i).getJSONArray("artists").getJSONObject(0).get("name"))
                         .append("\",");
-                builder.append("\"Name\":\"").append(data.getJSONObject(i).get("name")).append("\",");
-                builder.append("\"uri\":\"").append(data.getJSONObject(i).get("uri")).append("\"");
+                builder.append("\"track_name\":\"").append(data.getJSONObject(i).get("name")).append("\",");
+                builder.append("\"track_id\":\"").append(data.getJSONObject(i).get("uri")).append("\"");
                 builder.append("}");
                 if (i != data.length() - 1) {
                     builder.append(",");

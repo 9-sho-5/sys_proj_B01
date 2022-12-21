@@ -1,3 +1,4 @@
+import { getRanking } from "./assets/js/get-ranking.js";
 const useState = React.useState;
 const useEffect = React.useEffect;
 
@@ -5,35 +6,24 @@ const Ranking = () => {
   const [albums, setAlbums] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const url = new URL(window.location.href);
-  const params = url.searchParams;
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`https://jsonplaceholder.typicode.com/albums`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("error");
-        }
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        setAlbums(data);
-        setIsLoading(false);
-        console.log(data);
-      })
-      .catch((error) => {
-        setError("取得できませんでした");
-        setIsLoading(false);
-      });
+    (async () => {
+      setIsLoading(true);
+      const ranking = await getRanking();
+      ranking
+        ? setAlbums(ranking.data)
+        : setError("ランキングの取得に失敗しました");
+      setIsLoading(false);
+    })();
   }, []);
 
   return (
     <>
       <Header />
       <h1>楽曲ランキング</h1>
-      {albums && albums.map((album) => <Album album={album} />)}
+      {albums &&
+        albums.map((album, index) => <Album album={album} rank={index + 1} />)}
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>}
@@ -43,14 +33,15 @@ const Ranking = () => {
   );
 };
 
-const Album = ({ album }) => {
+const Album = ({ album, rank }) => {
   return (
     <div className="album">
-      <img src="./assets/img/entertainment_music.png" alt="album art" />
-      <p> {album.id}</p>
-      <p>アルバム名: {album.title}</p>
-      <p>曲名: hogehoge</p>
-      <button>リクエストする</button>
+      <p>rank: {rank}</p>
+      <img src={album.album_image_url} alt="album art" />
+      <p>アルバム名: {album.album_name}</p>
+      <p>曲名: {album.track_name}</p>
+      <p>アーティスト名: {album.artist_name}</p>
+      <p>アクセス数: {album.access}</p>
     </div>
   );
 };
