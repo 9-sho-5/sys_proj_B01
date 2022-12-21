@@ -65,11 +65,22 @@ sqlite> .exit
 ## 環境変数
 *.env*
 ```
+// Sporift for Developers > DashBoard より取得
 CLIENT_ID="クライアントID"
 CLIENT_SECRET="クライアントシークレットID"
+
+// Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定
 REDIRECT_URI="http://localhost:8080/isp2/billboard/callback"
+
+// 認証URL
 AUTHORIZE_URL="https://accounts.spotify.com/authorize"
+
+// Spotify API End Point
 API_ENDPOINT="https://api.spotify.com/v1"
+
+// 初期リフレッシュトークンの設定
 API_TEST_REFRESH_TOKEN="リフレッシュトークン生成用の初期リフレッシュトークン"
+
+// 追加先 Spotify Playlist Id の設定
 PLAYLIST_ID="BillBoard用のPlaylistのId"
 ```
