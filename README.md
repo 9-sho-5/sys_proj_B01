@@ -14,7 +14,7 @@
 ### Spotify API
 <img src="https://user-images.githubusercontent.com/61298948/207748534-ab6c47b9-173c-4aaa-b95e-fd59143146b3.png" style="height:50px;width:50px;">
 
-### JavaScript フレームワーク
+### React.js
 [![My Skills](https://skillicons.dev/icons?i=react&theme=dark)](https://skillicons.dev)
 
 ## Setting for VSCode
