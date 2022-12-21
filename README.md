@@ -1,4 +1,4 @@
-# BillBorad Web App
+# BillBoard Web App
 
 ## 使用技術
 
