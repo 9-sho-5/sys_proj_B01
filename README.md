@@ -1,7 +1,7 @@
 # BillBoard Web App
 
 ## 概要
-Spotify APIを使用し、検索、楽曲追加機能を実装。
+Spotify APIを使用し、検索、Spotify上の指定されたプレイリストへの楽曲追加機能を実装。
 
 また、SQLiteを使用し、リクエスト数に応じたランキング表示機能を実装。
 
