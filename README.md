@@ -1,5 +1,10 @@
 # BillBoard Web App
 
+## 概要
+Spotify APIを使用し、検索、Spotify上の指定されたプレイリストへの楽曲追加機能を実装。
+
+また、SQLiteを使用し、リクエスト数に応じたランキング表示機能を実装。
+
 ## 使用技術
 
 ### Management
@@ -14,7 +19,7 @@
 ### Spotify API
 <img src="https://user-images.githubusercontent.com/61298948/207748534-ab6c47b9-173c-4aaa-b95e-fd59143146b3.png" style="height:50px;width:50px;">
 
-### JavaScript フレームワーク
+### React.js
 [![My Skills](https://skillicons.dev/icons?i=react&theme=dark)](https://skillicons.dev)
 
 ## Setting for VSCode
@@ -65,11 +70,22 @@ sqlite> .exit
 ## 環境変数
 *.env*
 ```
+// Sporift for Developers > DashBoard より取得
 CLIENT_ID="クライアントID"
 CLIENT_SECRET="クライアントシークレットID"
+
+// Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定
 REDIRECT_URI="http://localhost:8080/isp2/billboard/callback"
+
+// 認証URL
 AUTHORIZE_URL="https://accounts.spotify.com/authorize"
+
+// Spotify API End Point
 API_ENDPOINT="https://api.spotify.com/v1"
+
+// 初期リフレッシュトークンの設定
 API_TEST_REFRESH_TOKEN="リフレッシュトークン生成用の初期リフレッシュトークン"
+
+// 追加先 Spotify Playlist Id の設定
 PLAYLIST_ID="BillBoard用のPlaylistのId"
 ```
