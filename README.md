@@ -101,7 +101,7 @@ $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboa
 // サーバー起動
 $ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
 
-$ http://localhost:8080/isp2/billboard/spotify にアクセスして、Authorization UrlにアクセスしてSpotify APIと連携する
+$ http://localhost:8080/isp2/billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
 
 $ Spotify APIとの連携後、refresh_tokenが取得できるので、.envに記述する
 
