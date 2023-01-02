@@ -140,7 +140,7 @@ public final class Spotify {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint
-                        + String.format("/search?q=%s&type=%s&limit=5", keyword, URLEncoder.encode("track", "utf-8"))))
+                        + String.format("/search?q=%s&type=%s&limit=5", URLEncoder.encode(keyword, "utf-8"), URLEncoder.encode("track", "utf-8"))))
                 .setHeader("Authorization", "Bearer " + this.accessToken)
                 .setHeader("Content-Type", "application/json")
                 .GET()
