@@ -94,6 +94,8 @@ PLAYLIST_ID="BillBoard用のPlaylistのId(https://open.spotify.com/playlist/〇�
 ```
 $ git clone https://github.com/9-sho-5/sys_proj_B01.git
 
+$ cd sys_proj_B01
+
 // .envの作成
 $ touch .env
 
