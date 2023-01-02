@@ -1,6 +1,7 @@
 package billboard;
 
 import java.io.IOException;
+import java.io.Writer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -19,6 +20,8 @@ public final class CallbackServlet extends HttpServlet {
         
         // cookieの格納変数
         Cookie cookie = null;
+        // refresh_tokenの格納変数
+        String refresh_token = null;
         // Spotifyの格納変数
         Spotify spotify = Spotify.getInstance();;
         
@@ -37,7 +40,7 @@ public final class CallbackServlet extends HttpServlet {
 
         try {
             // アクセストークンの生成
-            spotify.crateAccessToken();
+            refresh_token = spotify.crateAccessToken();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -45,8 +48,16 @@ public final class CallbackServlet extends HttpServlet {
         // レスポンスにcookieの追加
         response.addCookie(cookie);
         request.setCharacterEncoding("UTF-8");
-		response.sendRedirect("index.html");
 		
+        StringBuilder builder = new StringBuilder();
+		builder.append('{');
+		builder.append("\"refresh_token\":\"").append(refresh_token).append("\"");
+		builder.append('}');
+		String json = builder.toString();
+
+		Writer writer = response.getWriter();
+		writer.append(json);
+		writer.flush();
 	}
     
 }
