@@ -76,32 +76,39 @@ public final class Spotify {
      * @throws UnirestException
      * @throws UnsupportedEncodingException
      */
-    public void crateAccessToken() throws UnirestException, UnsupportedEncodingException {
+    public String crateAccessToken() throws UnirestException, UnsupportedEncodingException {
+        
+        String refresh_token = null;
+        
         // HTTPクライアントの準備
         HttpClient client = HttpClient.newHttpClient();
-        /**
-         *  HTTPリクエストの送信(初期アクセストークン)
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://accounts.spotify.com/api/token"))
-                .setHeader("Authorization",
-                        "Basic " + Base64.getEncoder().encodeToString(
-                                (this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
-                .setHeader("Content-Type", "application/x-www-form-urlencoded")
-                .POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s",
-                        URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(this.code, "UTF-8"),
-                        URLEncoder.encode(this.redirectUri, "UTF-8"))))
-                .build();
-         */
-        // HTTPリクエストの送信(リフレッシュトークン)
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://accounts.spotify.com/api/token"))
-                .setHeader("Authorization",
-                        "Basic " + Base64.getEncoder().encodeToString(
-                                (this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
-                .setHeader("Content-Type", "application/x-www-form-urlencoded")
-                .POST(BodyPublishers.ofString(String.format("grant_type=%s&refresh_token=%s",
-                        URLEncoder.encode("refresh_token", "UTF-8"), URLEncoder.encode(dotenv.get("API_TEST_REFRESH_TOKEN"), "UTF-8"))))
-                .build();
+
+        HttpRequest request = null;
+        if (dotenv.get("API_TEST_REFRESH_TOKEN").equals("")) {
+            // HTTPリクエストの送信(初期アクセストークン取得)
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://accounts.spotify.com/api/token"))
+                    .setHeader("Authorization",
+                            "Basic " + Base64.getEncoder().encodeToString(
+                                    (this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
+                    .setHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .POST(BodyPublishers.ofString(String.format("grant_type=%s&code=%s&redirect_uri=%s",
+                            URLEncoder.encode("authorization_code", "UTF-8"), URLEncoder.encode(this.code, "UTF-8"),
+                            URLEncoder.encode(this.redirectUri, "UTF-8"))))
+                    .build();
+        } else {
+            // HTTPリクエストの送信(リフレッシュトークンでのアクセストークン取得)
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://accounts.spotify.com/api/token"))
+                    .setHeader("Authorization",
+                            "Basic " + Base64.getEncoder().encodeToString(
+                                    (this.clientId + ':' + this.clientSecret).getBytes(StandardCharsets.UTF_8)))
+                    .setHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .POST(BodyPublishers.ofString(String.format("grant_type=%s&refresh_token=%s",
+                            URLEncoder.encode("refresh_token", "UTF-8"),
+                            URLEncoder.encode(dotenv.get("API_TEST_REFRESH_TOKEN"), "UTF-8"))))
+                    .build();
+        }
         try {
             // リクエストを送信
             var response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
@@ -109,9 +116,16 @@ public final class Spotify {
             JSONObject json = new JSONObject(response.body());
             // アクセストークンの格納
             this.accessToken = json.getString("access_token");
+            // リフレッシュトークン取得時のみ
+            if (dotenv.get("API_TEST_REFRESH_TOKEN").equals("")) {
+                refresh_token = json.getString("refresh_token");
+            }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        // リフレッシュトークンを返す(.env記述用)
+        return refresh_token;
     }
 
     /**
