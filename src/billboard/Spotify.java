@@ -45,7 +45,7 @@ public final class Spotify {
             "user-top-read"
     };
     // ユーザーのAPI認証後に取得するcodeの格納変数
-    private String code = dotenv.get("API_CODE");
+    private String code;
     // アクセストークンの格納変数
     private String accessToken;
 
@@ -53,6 +53,7 @@ public final class Spotify {
      * コンストラクタ
      */
     private Spotify() {
+        code = null;
         accessToken = null;
     }
 
