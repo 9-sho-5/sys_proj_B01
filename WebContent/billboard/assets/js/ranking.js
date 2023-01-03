@@ -21,13 +21,18 @@ const Ranking = () => {
   return (
     <>
       <Header />
-      <h1>楽曲ランキング</h1>
-      {albums &&
-        albums.map((album, index) => <Album album={album} rank={index + 1} />)}
-      <div>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        <a href="/index.html">戻る</a>
+      <div className="page-container">
+        <h1>KINDAI CHART 10</h1>
+        <table>
+          {albums &&
+            albums.map((album, index) => (
+              <Album album={album} rank={index + 1} />
+            ))}
+        </table>
+        <div>
+          {isLoading && <p className="loader">Loading...</p>}
+          {error && <p>{error}</p>}
+        </div>
       </div>
     </>
   );
@@ -35,14 +40,31 @@ const Ranking = () => {
 
 const Album = ({ album, rank }) => {
   return (
-    <div className="album">
-      <p>rank: {rank}</p>
-      <img src={album.album_image_url} alt="album art" />
-      <p>アルバム名: {album.album_name}</p>
-      <p>曲名: {album.track_name}</p>
-      <p>アーティスト名: {album.artist_name}</p>
-      <p>アクセス数: {album.access}</p>
-    </div>
+    <tr>
+      <th>
+        <p>{rank}</p>
+      </th>
+      <td className="table-img">
+        <img
+          src={
+            album.album_image_url !== "null"
+              ? album.album_image_url
+              : "./assets/img/entertainment_music.png"
+          }
+          alt={album.album_name}
+          className="ranking-track-image"
+        />
+      </td>
+      <td>
+        <p title={album.track_name} className="table-track-name">
+          {album.track_name}
+        </p>
+        <p title={album.artist_name} className="table-artist-name">
+          {album.artist_name}
+        </p>
+        <span className="table-points">{album.access} points</span>
+      </td>
+    </tr>
   );
 };
 
