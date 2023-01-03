@@ -234,6 +234,7 @@ table td {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 30px;
 }
 
 .link-with-icon {
