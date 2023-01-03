@@ -1,4 +1,5 @@
 import { getSearch } from "./assets/js/get-search.js";
+import { postMusic } from "./assets/js/post-music.js";
 const useState = React.useState;
 const useEffect = React.useEffect;
 
@@ -12,6 +13,19 @@ const Result = () => {
   const params = url.searchParams;
   // パラメータからスペースを除去
   const value = params.get("value").replace(/\s+/g, "");
+
+  const handleRequest = async (Music) => {
+    try {
+      setIsLoading(true);
+      const result = await postMusic(Music);
+      if (!result) throw new Error();
+      setSuccess("リクエストに成功しました！");
+    } catch (error) {
+      setError("リクエストに失敗しました");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -33,18 +47,21 @@ const Result = () => {
     <>
       <Header />
       <div className="page-container">
-        {!error && !success && (
+        {isLoading && (
+          <>
+            <p className="loader">Loading...</p>
+          </>
+        )}
+        {!isLoading && !error && !success && (
           <>
             <h1>{value} の検索結果</h1>
             <div className="grid-container">
-              {musics && musics.map((music) => <Track music={music} />)}
+              {musics &&
+                musics.map((music) => (
+                  <Track music={music} handleRequest={handleRequest} />
+                ))}
             </div>
             <div>
-              {isLoading && (
-                <>
-                  <p className="loader">Loading...</p>
-                </>
-              )}
               <a className="back-to-search" href="./search.html">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +170,7 @@ const Error = ({ error }) => (
   </div>
 );
 
-const Track = ({ music }) => {
+const Track = ({ music, handleRequest }) => {
   return (
     <div className="track">
       <div className="track-image-container">
@@ -162,7 +179,9 @@ const Track = ({ music }) => {
           alt={music.album_name}
           className="track-image"
         />
-        <button className="request-button">リクエスト</button>
+        <button className="request-button" onClick={() => handleRequest(music)}>
+          リクエスト
+        </button>
       </div>
       <p title={music.track_name} className="track-name">
         <a>{music.track_name}</a>
