@@ -117,6 +117,18 @@ li a {
   gap: 20px;
 }
 
+.back-to-search {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 5px;
+  text-decoration: none;
+  color: black;
+}
+
+/* search */
 .search-input {
   width: 280px;
   height: 40px;
@@ -128,7 +140,6 @@ li a {
   border-bottom-left-radius: 5px;
 }
 
-/* search */
 .search-input:focus {
   outline: none;
 }
