@@ -1,24 +1,8 @@
-export const postMusic = async (
-  trackId,
-  trackName,
-  artistName,
-  albumName,
-  albumImageURL
-) => {
-  const postData = {
-    trackId: trackId,
-    track_name: trackName,
-    artist_name: artistName,
-    album_name: albumName,
-    album_image_url: albumImageURL,
-  };
-  const url = "/billboard/add_track";
+export const postMusic = async (Music) => {
+  const query_params = new URLSearchParams(Music);
+  const url = `/isp2/billboard/add_track?${query_params}`;
   const param = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body: JSON.stringify(postData),
   };
   const response = await fetch(url, param);
   console.log(response);
