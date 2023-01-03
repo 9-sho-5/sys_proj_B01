@@ -34,20 +34,20 @@ Spotify APIを使用し、検索、Spotify上の指定されたプレイリス�
 ※ 今回、ライブラリを格納するディレクトリ名は「lib」とする
 
 ## プログラムコンパイル
-*billboard/*
-```
-$ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
-```
 *server/*
 ```
 $ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
+```
+
+*billboard/*
+```
+$ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
 ```
 
 ## サーバーの実行
 ```
 $ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
 ```
-
 
 ## データベースの確認
 ```
@@ -83,9 +83,35 @@ AUTHORIZE_URL="https://accounts.spotify.com/authorize"
 // Spotify API End Point
 API_ENDPOINT="https://api.spotify.com/v1"
 
-// 初期リフレッシュトークンの設定
-API_TEST_REFRESH_TOKEN="リフレッシュトークン生成用の初期リフレッシュトークン"
+// リフレッシュトークンの設定
+API_TEST_REFRESH_TOKEN="リフレッシュトークン(取得方法は後に記述)"
 
 // 追加先 Spotify Playlist Id の設定
-PLAYLIST_ID="BillBoard用のPlaylistのId"
+PLAYLIST_ID="BillBoard用のPlaylistのId(https://open.spotify.com/playlist/〇〇の部分)"
+```
+
+# 開発環境構築
+```
+$ git clone https://github.com/9-sho-5/sys_proj_B01.git
+
+$ cd sys_proj_B01
+
+// .envの作成
+$ touch .env
+
+$ .envの記述
+
+// コードコンパイル
+$ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
+$ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
+
+// サーバー起動
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
+
+$ http://localhost:8080/isp2/billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
+
+$ Spotify APIとの連携後、refresh_tokenが取得できるので、.envに記述する
+
+// サーバー再起動させると使用可能
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
 ```
