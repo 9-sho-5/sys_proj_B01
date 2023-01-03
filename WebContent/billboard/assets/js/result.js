@@ -6,6 +6,7 @@ const Result = () => {
   const [musics, setMusics] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const url = new URL(window.location.href);
   console.log(url);
   const params = url.searchParams;
@@ -32,23 +33,108 @@ const Result = () => {
     <>
       <Header />
       <div className="page-container">
-        <h1>{value} の検索結果</h1>
-        <div className="grid-container">
-          {musics && musics.map((music) => <Track music={music} />)}
-        </div>
-        <div>
-          {isLoading && (
-            <>
-              <p className="loader">Loading...</p>
-            </>
-          )}
-          {error && <p>{error}</p>}
-          <a href="./search.html">検索画面へ戻る</a>
-        </div>
+        {!error && !success && (
+          <>
+            <h1>{value} の検索結果</h1>
+            <div className="grid-container">
+              {musics && musics.map((music) => <Track music={music} />)}
+            </div>
+            <div>
+              {isLoading && (
+                <>
+                  <p className="loader">Loading...</p>
+                </>
+              )}
+              <a href="./search.html">検索画面へ戻る</a>
+            </div>
+          </>
+        )}
+        {error && !success ? <Error error={error} /> : null}
+        {success && !error ? <Success success={success} /> : null}
       </div>
     </>
   );
 };
+
+const Success = ({ success }) => (
+  <div className="error-container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon icon-tabler icon-tabler-circle-check"
+      width="44"
+      height="44"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="#2c3e50"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9 12l2 2l4 -4" />
+    </svg>
+    <p className="error-message">{success}</p>
+    <a className="link-with-icon" onClick={() => history.back()}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-arrow-back"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#2c3e50"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+      </svg>
+      <span>戻る</span>
+    </a>
+  </div>
+);
+
+const Error = ({ error }) => (
+  <div className="error-container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon icon-tabler icon-tabler-alert-triangle"
+      width="44"
+      height="44"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="#2c3e50"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 9v2m0 4v.01" />
+      <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+    </svg>
+    <p className="error-message">{error}</p>
+    <a className="link-with-icon" onClick={() => history.back()}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-arrow-back"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#2c3e50"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+      </svg>
+      <span>戻る</span>
+    </a>
+  </div>
+);
 
 const Track = ({ music }) => {
   return (

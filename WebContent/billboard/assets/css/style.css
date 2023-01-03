@@ -216,6 +216,21 @@ table td {
   padding: 2px 5px;
 }
 
+/* error */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link-with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 5px;
+}
+
 /* loader */
 .loader,
 .loader:after {
