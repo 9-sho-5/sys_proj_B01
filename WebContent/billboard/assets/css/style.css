@@ -127,3 +127,29 @@ li a {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
+/* search */
+.search-input:focus {
+  outline: none;
+}
+
+.search-input-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+  background-color: black;
+  outline: none;
+  border: none;
+  color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: auto 10px;
+  cursor: pointer;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+}

@@ -9,12 +9,28 @@ const Search = () => {
   return (
     <>
       <Header />
-      <h1>アルバムを検索</h1>
-      <p>(1-100の数字を入力するとアルバム情報を取得できます)</p>
-      <form action="./result.html" method="get">
-        <input value={value} name="value" onChange={handleValueChange} />
-        <input type="submit" value="検索！" />
-      </form>
+      <div className="page-container">
+        <div className="flex-container">
+          <div className="title-container">
+            <h1>FIND TRACKS</h1>
+
+            <form action="./result.html" method="get" className="search-form">
+              <input
+                value={value}
+                name="value"
+                onChange={handleValueChange}
+                className="search-input"
+                placeholder="検索ワード"
+              />
+              <input
+                type="submit"
+                value="検索"
+                className="search-input-button"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
