@@ -84,7 +84,7 @@ AUTHORIZE_URL="https://accounts.spotify.com/authorize"
 API_ENDPOINT="https://api.spotify.com/v1"
 
 // リフレッシュトークンの設定
-API_TEST_REFRESH_TOKEN="リフレッシュトークン(取得方法は後に記述)"
+API_REFRESH_TOKEN="リフレッシュトークン(取得方法は後に記述)"
 
 // 追加先 Spotify Playlist Id の設定
 PLAYLIST_ID="BillBoard用のPlaylistのId(https://open.spotify.com/playlist/〇〇の部分)"

@@ -85,7 +85,7 @@ public final class Spotify {
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = null;
-        if (dotenv.get("API_TEST_REFRESH_TOKEN").equals("")) {
+        if (dotenv.get("API_REFRESH_TOKEN").equals("")) {
             // HTTPリクエストの送信(初期アクセストークン取得)
             request = HttpRequest.newBuilder()
                     .uri(URI.create("https://accounts.spotify.com/api/token"))
@@ -107,7 +107,7 @@ public final class Spotify {
                     .setHeader("Content-Type", "application/x-www-form-urlencoded")
                     .POST(BodyPublishers.ofString(String.format("grant_type=%s&refresh_token=%s",
                             URLEncoder.encode("refresh_token", "UTF-8"),
-                            URLEncoder.encode(dotenv.get("API_TEST_REFRESH_TOKEN"), "UTF-8"))))
+                            URLEncoder.encode(dotenv.get("API_REFRESH_TOKEN"), "UTF-8"))))
                     .build();
         }
         try {
@@ -118,7 +118,7 @@ public final class Spotify {
             // アクセストークンの格納
             this.accessToken = json.getString("access_token");
             // リフレッシュトークン取得時のみ
-            if (dotenv.get("API_TEST_REFRESH_TOKEN").equals("")) {
+            if (dotenv.get("API_REFRESH_TOKEN").equals("")) {
                 refresh_token = json.getString("refresh_token");
             }
         } catch (IOException | InterruptedException e) {
