@@ -288,3 +288,20 @@ table td {
     transform: rotate(360deg);
   }
 }
+
+/* Listen on Spotify */
+.spotify-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spotify-container a {
+  display: inline-block;
+}
+
+.listen-on-spotify {
+  margin-top: 10px;
+  width: 120px;
+  text-align: end;
+}
