@@ -22,7 +22,20 @@ const Ranking = () => {
     <>
       <Header />
       <div className="page-container">
-        <h1>KINDAI CHART 10</h1>
+        <div className="spotify-container">
+          <h1>KINDAI CHART 10</h1>
+          <a
+            href="https://open.spotify.com/playlist/1EYHrEKAHQKKLdmF4W5dYl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="./assets/img/listen_on_spotify_logo.png"
+              alt="Listen on Spotify"
+              className="listen-on-spotify"
+            ></img>
+          </a>
+        </div>
         <table>
           {albums &&
             albums.map((album, index) => (
