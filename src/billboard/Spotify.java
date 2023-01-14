@@ -19,7 +19,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 public final class Spotify {
 
     // 環境変数の読み込み準備
-    Dotenv dotenv = Dotenv.configure().load();
+    Dotenv dotenv = Dotenv.configure().directory("./WebContent/WEB-INF").load();
 
     // Spotifyシングルトンインスタンスの取得
     private static Spotify spotify = new Spotify();
