@@ -9,7 +9,7 @@ import java.sql.Statement;
 public final class Database {
 
     // MySQLの接続設定
-    private final static String DB_URL = "jdbc:sqlite:sys_proj_B01.sqlite3";
+    private final static String DB_URL = "jdbc:sqlite:WebContent/WEB-INF/sys_proj_B01.sqlite3";
 
     /**
      * データベースの初期設定
