@@ -1,6 +1,6 @@
 export const postMusic = async (Music) => {
   const query_params = new URLSearchParams(Music);
-  const url = `/isp2/billboard/add_track?${query_params}`;
+  const url = `add_track?${query_params}`;
   const param = {
     method: "POST",
   };
