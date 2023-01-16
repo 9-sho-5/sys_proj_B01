@@ -14,7 +14,7 @@ const Search = () => {
           <div className="title-container">
             <h1>FIND TRACKS</h1>
 
-            <form action="./result.html" method="get" className="search-form">
+            <form action="result.html" method="get" className="search-form">
               <input
                 value={value}
                 name="value"
