@@ -9,13 +9,15 @@ import java.sql.Statement;
 public final class Database {
 
     // MySQLの接続設定
-    private final static String DB_URL = "jdbc:sqlite:WebContent/WEB-INF/sys_proj_B01.sqlite3";
+    private static String DB_URL = null;
 
     /**
      * データベースの初期設定
      * データベースの作成、テーブルの作成を行う
      */
-    public static void setUp() {
+    public static void setUp(String context_db_url) {
+
+        DB_URL = "jdbc:sqlite:" + context_db_url;
 
         // ライブラリのパス設定
         setLibPath();

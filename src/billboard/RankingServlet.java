@@ -20,15 +20,18 @@ public final class RankingServlet extends HttpServlet {
         
 		System.out.println("=== Get Data ===");
 
+        Spotify spotify = Spotify.getInstance();
+        spotify.setUp(getServletContext().getRealPath("WEB-INF/.env"));
+
         // データベースの接続
-        Database.setUp();
+        Database.setUp(getServletContext().getRealPath("WEB-INF/sys_proj_B01.sqlite3"));
 
         // データベースからデータの取得
         String json = Database.getData();
 
         // JSONを文字列に変換
-		response.setContentType("application/json");
-		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
+
         // JSONを返す
 		Writer writer = response.getWriter();
 		writer.append(json);

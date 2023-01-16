@@ -19,17 +19,17 @@ import io.github.cdimascio.dotenv.Dotenv;
 public final class Spotify {
 
     // 環境変数の読み込み準備
-    Dotenv dotenv = Dotenv.configure().directory("./WebContent/WEB-INF").load();
+    Dotenv dotenv = null;
 
     // Spotifyシングルトンインスタンスの取得
     private static Spotify spotify = new Spotify();
 
     // 環境変数からの読み込み
-    private final String clientId = dotenv.get("CLIENT_ID");
-    private final String clientSecret = dotenv.get("CLIENT_SECRET");
-    private final String redirectUri = dotenv.get("REDIRECT_URI");
-    private final String authorizeUrl = dotenv.get("AUTHORIZE_URL");
-    private final String apiEndpoint = dotenv.get("API_ENDPOINT");
+    private String clientId = null;
+    private String clientSecret = null;
+    private String redirectUri = null;
+    private String authorizeUrl = null;
+    private String apiEndpoint = null;
     private final String[] scope = {
             "playlist-read-private",
             "playlist-modify-private",
@@ -55,6 +55,16 @@ public final class Spotify {
     private Spotify() {
         code = null;
         accessToken = null;
+    }
+
+    // シングルトンインスタンスのゲッター
+    public void setUp(String path){
+        this.dotenv = Dotenv.configure().directory(path).load();
+        this.clientId = dotenv.get("CLIENT_ID");
+        this.clientSecret = dotenv.get("CLIENT_SECRET");
+        this.redirectUri = dotenv.get("REDIRECT_URI");
+        this.authorizeUrl = dotenv.get("AUTHORIZE_URL");
+        this.apiEndpoint = dotenv.get("API_ENDPOINT");
     }
 
     // シングルトンインスタンスのゲッター
@@ -142,7 +152,7 @@ public final class Spotify {
                 .uri(URI.create(apiEndpoint
                         + String.format("/search?q=%s&type=%s&limit=25", URLEncoder.encode(keyword, "utf-8"), URLEncoder.encode("track", "utf-8"))))
                 .setHeader("Authorization", "Bearer " + this.accessToken)
-                .setHeader("Content-Type", "application/json")
+                .setHeader("Content-Type", "application/json; charset=UTF-8")
                 .GET()
                 .build();
 
@@ -203,7 +213,7 @@ public final class Spotify {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint + String.format("/playlists/%s/tracks", dotenv.get("PLAYLIST_ID"))))
                 .setHeader("Authorization", "Bearer " + this.accessToken)
-                .setHeader("Content-Type", "application/json")
+                .setHeader("Content-Type", "application/json; charset=UTF-8")
                 .POST(BodyPublishers.ofString(uris.toString()))
                 .build();
 
