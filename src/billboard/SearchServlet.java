@@ -35,9 +35,10 @@ public final class SearchServlet extends HttpServlet {
 
         // jsonの格納
         String json = builder.toString();
-
+        
         // レスポンスの送信
-        response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
+
         PrintWriter writer = response.getWriter();
         writer.append(json);
         writer.flush();

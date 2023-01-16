@@ -52,7 +52,8 @@ public final class AddTrackServlet extends HttpServlet {
             json = spotify.addTrack(data);
 
         // レスポンスの送信
-        response.setContentType("application/json");
+        response.setContentType("application/json; charset=UTF-8");
+
         PrintWriter writer = response.getWriter();
         writer.append(json);
         writer.flush();
