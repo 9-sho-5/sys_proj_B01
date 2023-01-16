@@ -46,7 +46,7 @@ $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboa
 
 ## サーバーの実行
 ```
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer [ポート番号] /isp2 WebContent
 ```
 
 ## データベースの確認
@@ -68,6 +68,7 @@ sqlite> .exit
 ```
 
 ## 環境変数
+WEB-INF下に配置する
 *.env*
 ```
 // Sporift for Developers > DashBoard より取得
@@ -75,7 +76,7 @@ CLIENT_ID="クライアントID"
 CLIENT_SECRET="クライアントシークレットID"
 
 // Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定
-REDIRECT_URI="http://localhost:8080/isp2/billboard/callback"
+REDIRECT_URI="〇〇/billboard/callback"
 
 // 認証URL
 AUTHORIZE_URL="https://accounts.spotify.com/authorize"
@@ -108,10 +109,10 @@ $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboa
 // サーバー起動
 $ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
 
-$ http://localhost:8080/isp2/billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
+$ /billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
 
 $ Spotify APIとの連携後、refresh_tokenが取得できるので、.envに記述する
 
 // サーバー再起動させると使用可能
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 /isp2 WebContent
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer [ポート番号] /isp2 WebContent
 ```
