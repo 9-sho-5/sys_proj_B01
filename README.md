@@ -100,7 +100,7 @@ $ cd sys_proj_B01
 // .envの作成
 $ touch .env
 
-$ .envの記述
+$ vi .env
 
 // コードコンパイル
 $ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
