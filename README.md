@@ -100,6 +100,7 @@ $ cd sys_proj_B01
 // .envの作成
 $ touch .env
 
+// .env内容の記述
 $ vi .env
 
 // コードコンパイル
