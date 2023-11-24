@@ -46,7 +46,7 @@ $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboa
 
 ## サーバーの実行
 ```
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer [ポート番号] /isp2 WebContent
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
 ```
 
 ## データベースの確認
@@ -76,7 +76,7 @@ CLIENT_ID="クライアントID"
 CLIENT_SECRET="クライアントシークレットID"
 
 // Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定
-REDIRECT_URI="〇〇/billboard/callback"
+REDIRECT_URI="/billboard/callback"
 
 // 認証URL
 AUTHORIZE_URL="https://accounts.spotify.com/authorize"
