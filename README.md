@@ -52,7 +52,7 @@ $ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
 ## データベースの確認
 ```
 // データベースに接続
-$ sqlite3 sys_proj_B01.sqlite3
+$ sqlite3 WebContent/WEB-INF/sys_proj_B01.sqlite3
 
 // データ表示する際にカラムを表示
 sqlite> .headers ON
