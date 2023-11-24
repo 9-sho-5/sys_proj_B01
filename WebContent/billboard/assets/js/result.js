@@ -197,7 +197,7 @@ const Header = () => {
   return (
     <header>
       <a href="./index.html" className="logo">
-        Billboard Kindai
+        Billboard Web App
       </a>
       <nav>
         <ul className="nav-list">

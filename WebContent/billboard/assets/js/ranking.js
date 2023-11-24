@@ -23,7 +23,7 @@ const Ranking = () => {
       <Header />
       <div className="page-container">
         <div className="spotify-container">
-          <h1>KINDAI CHART</h1>
+          <h1>BILLBOARD CHART</h1>
           <a
             href="https://open.spotify.com/playlist/1EYHrEKAHQKKLdmF4W5dYl"
             target="_blank"
@@ -85,7 +85,7 @@ const Header = () => {
   return (
     <header>
       <a href="index.html" className="logo">
-        Billboard Kindai
+        Billboard Web App
       </a>
       <nav>
         <ul className="nav-list">
