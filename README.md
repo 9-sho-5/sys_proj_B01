@@ -108,12 +108,14 @@ $ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
 $ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
 
 // サーバー起動
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer [ポート番号] /isp2 WebContent
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
 
 $ /billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
 
 $ Spotify APIとの連携後、refresh_tokenが取得できるので、.envに記述する
 
-// サーバー再起動させると使用可能
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer [ポート番号] /isp2 WebContent
+// サーバー再起動させる
+$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
+
+// localhost:8080/billboard/index.htmlにアクセスするとランキング画面が表示される
 ```
