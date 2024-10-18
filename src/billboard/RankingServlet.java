@@ -14,27 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/billboard/ranking")
 public final class RankingServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-		System.out.println("=== Get Data ===");
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Spotify spotify = Spotify.getInstance();
-        spotify.setUp(getServletContext().getRealPath("WEB-INF/.env"));
+    System.out.println("=== Get Data ===");
 
-        // データベースの接続
-        Database.setUp(getServletContext().getRealPath("WEB-INF/sys_proj_B01.sqlite3"));
+    Spotify spotify = Spotify.getInstance();
+    spotify.setUp(getServletContext().getRealPath("WEB-INF/.env"));
 
-        // データベースからデータの取得
-        String json = Database.getData();
+    // データベースの接続
+    Database.setUp(getServletContext().getRealPath("WEB-INF/sys_proj_B01.sqlite3"));
 
-        // JSONを文字列に変換
-		response.setContentType("application/json; charset=UTF-8");
+    // データベースからデータの取得
+    String json = Database.getData();
 
-        // JSONを返す
-		Writer writer = response.getWriter();
-		writer.append(json);
-		writer.flush();
-	}
+    // JSONを文字列に変換
+    response.setContentType("application/json; charset=UTF-8");
+
+    // JSONを返す
+    Writer writer = response.getWriter();
+    writer.append(json);
+    writer.flush();
+  }
 }

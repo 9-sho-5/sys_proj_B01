@@ -14,35 +14,35 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
 public final class WarServer {
 
-	public static void main(String[] args) throws Exception {
-		if (args.length != 3){
-			System.out.println("WarServer:");
-			System.out.println("   port");
-			System.out.println("   context_path");
-			System.out.println("   war_file_path");
-			System.exit(1);
-	  	}
-	  	int port = Integer.parseInt(args[0]);
-	  	String contextPath = args[1];
-	  	String warFilePath = args[2];
-        Configuration[] configurations = {
-        	new AnnotationConfiguration(),
-        	new WebInfConfiguration(),
-        	new WebXmlConfiguration(),
-        	new MetaInfConfiguration(),
-        	new FragmentConfiguration(),
-        	new EnvConfiguration(),
-        	new PlusConfiguration(),
-        	new JettyWebXmlConfiguration()
-        };
-    	WebAppContext context = new WebAppContext();
-    	context.setContextPath(contextPath);
-	  	context.setWar(warFilePath);
-    	context.setConfigurations(configurations);
-	  	Server server = new Server(port);	
-	  	server.setHandler(context);
-	    server.start();
-	    server.join();
+  public static void main(String[] args) throws Exception {
+    if (args.length != 3) {
+      System.out.println("WarServer:");
+      System.out.println("   port");
+      System.out.println("   context_path");
+      System.out.println("   war_file_path");
+      System.exit(1);
     }
+    int port = Integer.parseInt(args[0]);
+    String contextPath = args[1];
+    String warFilePath = args[2];
+    Configuration[] configurations = {
+        new AnnotationConfiguration(),
+        new WebInfConfiguration(),
+        new WebXmlConfiguration(),
+        new MetaInfConfiguration(),
+        new FragmentConfiguration(),
+        new EnvConfiguration(),
+        new PlusConfiguration(),
+        new JettyWebXmlConfiguration()
+    };
+    WebAppContext context = new WebAppContext();
+    context.setContextPath(contextPath);
+    context.setWar(warFilePath);
+    context.setConfigurations(configurations);
+    Server server = new Server(port);
+    server.setHandler(context);
+    server.start();
+    server.join();
+  }
 
 }

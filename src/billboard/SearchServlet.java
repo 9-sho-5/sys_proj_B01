@@ -13,36 +13,36 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @WebServlet("/billboard/search")
 public final class SearchServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // paramsの取得
-        String keyword = request.getParameter("keyword");
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // paramsの取得
+    String keyword = request.getParameter("keyword");
 
-        // レスポンスの取得準備
-        StringBuilder builder = new StringBuilder();
-        Spotify spotify = Spotify.getInstance();
-        try {
-            spotify.crateAccessToken();
-        } catch (UnirestException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        // レスポンスの取得
-        builder.append(spotify.search(keyword));
-
-        // jsonの格納
-        String json = builder.toString();
-        
-        // レスポンスの送信
-		response.setContentType("application/json; charset=UTF-8");
-
-        PrintWriter writer = response.getWriter();
-        writer.append(json);
-        writer.flush();
-
+    // レスポンスの取得準備
+    StringBuilder builder = new StringBuilder();
+    Spotify spotify = Spotify.getInstance();
+    try {
+      spotify.crateAccessToken();
+    } catch (UnirestException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+
+    // レスポンスの取得
+    builder.append(spotify.search(keyword));
+
+    // jsonの格納
+    String json = builder.toString();
+
+    // レスポンスの送信
+    response.setContentType("application/json; charset=UTF-8");
+
+    PrintWriter writer = response.getWriter();
+    writer.append(json);
+    writer.flush();
+
+  }
 
 }
