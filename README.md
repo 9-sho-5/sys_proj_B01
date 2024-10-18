@@ -75,8 +75,8 @@ WEB-INF下に配置する
 CLIENT_ID="クライアントID"
 CLIENT_SECRET="クライアントシークレットID"
 
-// Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定
-REDIRECT_URI="/billboard/callback"
+// Sporift for Developers > DashBoard > Edit Settings > Redirect URIs より設定して保存する
+REDIRECT_URI="http://localhost:8080/billboard/callback"
 
 // 認証URL
 AUTHORIZE_URL="https://accounts.spotify.com/authorize"
