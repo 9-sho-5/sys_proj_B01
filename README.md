@@ -103,19 +103,19 @@ $ touch .env
 // .env内容の記述
 $ vi .env
 
-// コードコンパイル
-$ javac -d bin -cp "WebContent/WEB-INF/lib/*" src/server/*.java
-$ javac -d WebContent/WEB-INF/classes -cp "WebContent/WEB-INF/lib/*" src/billboard/*.java
+// Dockerビルド
+$ docker build -t billboard-app
 
-// サーバー起動
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
+// Dockerコンテナの起動
+$ docker-compose up -d
 
 $ /billboard/spotify にアクセス後、Authorization UrlにアクセスしてSpotify APIと連携する
 
 $ Spotify APIとの連携後、refresh_tokenが取得できるので、.envに記述する
 
-// サーバー再起動させる
-$ java -cp "WebContent/WEB-INF/lib/*:bin" server.AppServer 8080 / WebContent
+// 再度Dockerビルドして、 Dockerコンテナを起動させる
+$ docker build -t billboard-app
+$ docker-compose up -d
 
 // localhost:8080/billboard/index.htmlにアクセスするとランキング画面が表示される
 ```
